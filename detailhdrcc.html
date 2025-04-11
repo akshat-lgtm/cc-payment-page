@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-fadeInUp {
+      animation: fadeInUp 1s ease-out forwards;
+    }
+
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.45); /* Darker overlay */
+      z-index: 0;
+    }
+
+    .card-bg {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('kanappa after.png');
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen flex items-center justify-center font-sans p-4 text-white">
+
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline class="background-video">
+    <source src="payment.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Payment Card -->
+  <div class="relative z-10 card-bg backdrop-blur-2xl border border-white/30 shadow-2xl p-6 sm:p-8 rounded-2xl sm:rounded-3xl w-full max-w-sm sm:max-w-md text-center animate-fadeInUp">
+    
+    <!-- Premium Heading -->
+    <h1 class="text-3xl sm:text-4xl font-extrabold mb-4 bg-gradient-to-r from-yellow-400 via-pink-500 to-yellow-400 bg-clip-text text-transparent tracking-wide drop-shadow-lg">
+      Make a Payment
+    </h1>
+    
+    <!-- QR Code -->
+    <div class="bg-grey-100 p-3 sm:p-4 rounded-xl inline-block mb-4 shadow-lg">
+      <img src="myqr.jpeg" alt="QR Code" class="w-48 sm:w-56 h-48 sm:h-56 object-contain rounded-xl" />
+    </div>
+
+    <!-- UPI ID -->
+    <p class="text-base sm:text-lg font-medium mb-4 text-gray-200">
+      <span class="text-white/80">UPI ID:</span><br>
+      <span 
+        onclick="copyText('akshat3825@okaxis')" 
+        class="text-white text-lg sm:text-xl font-semibold cursor-pointer hover:underline active:scale-95 transition"
+      >
+        akshat3825@okaxis
+      </span>
+    </p>
+
+    <!-- Payment Instructions -->
+    <p class="text-base text-green-300 font-semibold text-xl italic mb-5" style="text-shadow: 0 0 8px #22c55e, 0 0 12px #22c55e;">
+        You will get: [DETAIL HDR CC]
+      </p>
+  
+
+    <!-- WhatsApp Message -->
+    <div class="text-sm text-white bg-white/10 p-4 rounded-xl border border-white/20 mt-4 sm:mt-6 px-3 sm:px-4">
+      <p><strong>Note:</strong> If you have completed your payment and the download link is not opening, please send a screenshot of your payment to my WhatsApp:</p>
+      
+      <div class="mt-2">
+        <p class="text-white font-semibold text-base sm:text-lg">
+          📱 
+          <span 
+            onclick="copyText('6202755806')" 
+            class="cursor-pointer hover:underline active:scale-95 transition"
+          >
+            6202755806
+          </span>
+        </p>
+      </div>
+
+      <p class="mt-2 text-gray-300 font-bold text-lg italic">I will directly send the file there.</p>
+    </div>
+  </div>
+
+  <script>
+    function copyText(value) {
+      navigator.clipboard.writeText(value).then(() => {
+        alert(`${value} copied to clipboard!`);
+      });
+    }
+  </script>
+</body>
+</html>

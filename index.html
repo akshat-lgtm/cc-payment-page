@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <title>REELER AEP CC HUB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Prevent unwanted zooming */
+    html {
+      touch-action: manipulation;
+      -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+    
+    .glow {
+      animation: glow 3s ease-in-out infinite;
+    }
+    
+    @keyframes glow {
+      0% { box-shadow: 0 0 8px #6366f1, 0 0 16px #6366f1; }
+      50% { box-shadow: 0 0 16px #8b5cf6, 0 0 32px #8b5cf6; }
+      100% { box-shadow: 0 0 8px #6366f1, 0 0 16px #6366f1; }
+    }
+    
+    @keyframes iconGlow {
+      0% {
+        filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px currentColor);
+      }
+      50% {
+        filter: drop-shadow(0 0 8px #fff) drop-shadow(0 0 12px currentColor);
+      }
+      100% {
+        filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px currentColor);
+      }
+    }
+
+    .icon-glow {
+      animation: iconGlow 2s ease-in-out infinite;
+    }
+
+    .compare-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 1rem;
+    }
+    
+    .compare-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
+    .before-image {
+      clip-path: inset(0 50% 0 0);
+      transition: clip-path 0.1s ease;
+      z-index: 2;
+    }
+
+    .after-image {
+      z-index: 1;
+    }
+
+    /* Enhanced Fiery Text Animation */
+    .fiery-text {
+      background: linear-gradient(
+        to right, 
+        #ff4d00, #ff9500, #ffcc00, 
+        #ff4d00, #ff9500, #ffcc00,
+        #ff4d00
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: fieryGradient 2s linear infinite;
+      text-shadow: 
+        0 0 10px rgba(255, 77, 0, 0.7),
+        0 0 20px rgba(255, 149, 0, 0.5),
+        0 0 30px rgba(255, 204, 0, 0.3);
+      position: relative;
+      display: inline-block;
+    }
+
+    @keyframes fieryGradient {
+      0% {
+        background-position: 0% center;
+      }
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    /* Fire Pulse Effect */
+    .fiery-text::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: radial-gradient(
+        circle, 
+        rgba(255, 100, 0, 0.4) 0%, 
+        transparent 70%
+      );
+      border-radius: 50%;
+      z-index: -1;
+      animation: firePulse 2s ease-out infinite;
+      opacity: 0;
+    }
+
+    @keyframes firePulse {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+      }
+    }
+
+    .compare-handle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: white;
+      z-index: 3;
+      cursor: ew-resize;
+      transition: left 0.1s ease;
+    }
+    
+    @keyframes moneyGlow {
+      0% {
+        text-shadow: 0 0 6px #00ff6a, 0 0 12px #00ff6a;
+        transform: scale(1);
+      }
+      50% {
+        text-shadow: 0 0 12px #00ff6a, 0 0 24px #00ff6a;
+        transform: scale(1.1);
+      }
+      100% {
+        text-shadow: 0 0 6px #00ff6a, 0 0 12px #00ff6a;
+        transform: scale(1);
+      }
+    }
+
+    .price-tag {
+      color: #00ff6a; 
+      animation: moneyGlow 1.5s ease-in-out infinite;
+      font-weight: 800;
+    }
+    
+    .stroke-gradient {
+      background: linear-gradient(to right, #ff4d00, #ffcc00);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 2px white;
+    }
+    
+    .stroke-purple {
+      -webkit-text-stroke: 2px #a855f7;
+    }
+    
+    .stroke-orange {
+      -webkit-text-stroke: 2px #f97316;
+    }
+    
+    .stroke-green {
+      -webkit-text-stroke: 2px #22c55e;
+    }
+    
+    .stroke-text {
+      color: transparent;
+      -webkit-text-stroke: 2px white;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    
+    .follow-me {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .nav-gradient {
+      background: linear-gradient(90deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%);
+    }
+    
+    /* Fix for video background */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    
+    /* Improved mobile touch handling */
+    @media (max-width: 640px) {
+      .follow-me {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+      }
+      
+      .follow-me span:first-child {
+        margin-bottom: 0.5rem;
+      }
+      
+      .follow-me span:nth-child(3) {
+        display: none;
+      }
+      
+      .stroke-text {
+        -webkit-text-stroke: 1px white;
+      }
+    }
+    
+    /* New button styles */
+    .view-details-btn {
+      background: linear-gradient(to right, #6366f1, #8b5cf6);
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .view-details-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(to right, #4f46e5, #7c3aed);
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex flex-col items-center p-4 pb-10">
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="insta bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
+      
+    <nav class="w-full fixed top-0 left-0 z-50 backdrop-blur-md bg-white/10 shadow-lg px-4 nav-gradient">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-4 h-16 sm:h-20">
+            <!-- Left Side: Logo + Social Links -->
+            <div class="flex items-center gap-2 sm:gap-4 h-full">
+                <!-- Logo (full height of nav) -->
+                <div class="h-16 aspect-square rounded-full border-auto sm:border-4 border-white shadow-lg glow overflow-hidden shrink-0">
+                    <img src="my logo.png" alt="My Logo" class="w-full h-full object-cover rounded-full" />
+                </div>
+
+                <!-- Instagram Link -->
+                <a href="https://appurl.io/cM0bqqBtcn" target="_blank"
+                   class="text-white text-sm sm:text-base md:text-lg font-semibold flex items-center gap-1 sm:gap-2 group flex-shrink-0">
+                    <span class="truncate">@reeler_1080p</span>
+                    <img src="https://cdn.pixabay.com/photo/2021/06/15/12/14/instagram-6338393_1280.png" alt="Instagram"
+                         class="w-4 h-4 rounded-full sm:w-5 sm:h-5 icon-glow text-pink-500 group-hover:scale-110 transition-transform duration-300" />
+                </a>
+
+                <!-- YouTube Link -->
+                <a href="https://appurl.io/S-zBbyiIKB" target="_blank"
+                   class="text-white text-sm sm:text-base md:text-lg font-semibold flex items-center gap-1 sm:gap-2 group flex-shrink-0">
+                    <span class="truncate">Reeler Aep</span>
+                    <img src="youtube.png" alt="YouTube"
+                         class="w-4 h-4 sm:w-5 rounded-full sm:h-5 icon-glow text-red-500 group-hover:scale-110 transition-transform duration-300" />
+                </a>
+            </div>
+            
+            <!-- Right Side (empty for balance) -->
+            <div class="invisible sm:invisible sm:w-[calc(50%-theme(spacing.4))]"></div>
+        </div>
+    </nav>
+    
+    <!-- Main Heading Below Navbar -->
+    <div class="w-full max-w-6xl mt-24 mb-8 text-center px-4">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-wider mb-2">
+        <span class="fiery-text text-transparent stroke-text">REELER AEP CC HUB</span>
+      </h1>
+    </div>
+    
+    <!-- Product Grid -->
+    <div class="w-full max-w-6xl mt-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          <div class="flex flex-col items-center">
+            <a href="4khdrcc.html" class="w-full text-center">
+              <h2 class="text-white font-bold text-lg mb-2 tracking-wide">
+                4K HDR CC [<span class="price-tag text-xl">₹99/-</span>]
+              </h2>
+            </a>
+            <div class="aspect-square w-full bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-xl glow overflow-hidden">
+              <div class="compare-container w-full h-full" data-before="yoyo before.png" data-after="yoyo after.png">
+                <img src="yoyo after.png" alt="After" class="compare-image after-image">
+                <img src="yoyo before.png" alt="Before" class="compare-image before-image">
+                <div class="compare-handle"></div>
+              </div>
+            </div>
+            <a href="4khdrcc.html" class="mt-4 view-details-btn">
+              View Details
+            </a>
+          </div>
+        
+          <div class="flex flex-col items-center">
+            <a href="colourfulcc.html" class="w-full text-center">
+              <h2 class="text-white font-bold text-lg mb-2 tracking-wide">
+                COLOURFUL CC [<span class="price-tag text-xl">₹99/-</span>]
+              </h2>
+            </a>
+            <div class="aspect-square w-full bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-xl glow overflow-hidden">
+              <div class="compare-container w-full h-full" data-before="mona2 before.png" data-after="mona2 after.png">
+                <img src="mona2 after.png" alt="After" class="compare-image after-image">
+                <img src="mona2 before.png" alt="Before" class="compare-image before-image">
+                <div class="compare-handle"></div>
+              </div>
+            </div>
+            <a href="colourfulcc.html" class="mt-4 view-details-btn">
+              View Details
+            </a>
+          </div>
+        
+          <div class="flex flex-col items-center">
+            <a href="universalcc.html" class="w-full text-center">
+              <h2 class="text-white font-bold text-lg mb-2 tracking-wide">
+                UNIVERSAL CC [<span class="price-tag text-xl">₹99/-</span>]
+              </h2>
+            </a>
+            <div class="aspect-square w-full bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl shadow-xl glow overflow-hidden">
+              <div class="compare-container w-full h-full" data-before="cc3 before.png" data-after="cc3 after.png">
+                <img src="cc3 after.png" alt="After" class="compare-image after-image">
+                <img src="cc3 before.png" alt="Before" class="compare-image before-image">
+                <div class="compare-handle"></div>
+              </div>
+            </div>
+            <a href="universalcc.html" class="mt-4 view-details-btn">
+              View Details
+            </a>
+          </div>
+          
+          <div class="flex flex-col items-center">
+            <a href="detailhdrcc.html" class="w-full text-center">
+              <h2 class="text-white font-bold text-lg mb-2 tracking-wide">
+                DETAIL HDR CC [<span class="price-tag text-xl">₹99/-</span>]
+              </h2>
+            </a>
+            <div class="aspect-square w-full bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-xl glow overflow-hidden">
+              <div class="compare-container w-full h-full" data-before="kanappa before.png" data-after="kanappa after.png">
+                <img src="kanappa after.png" alt="After" class="compare-image after-image">
+                <img src="kanappa before.png" alt="Before" class="compare-image before-image">
+                <div class="compare-handle"></div>
+              </div>
+            </div>
+            <a href="detailhdrcc.html" class="mt-4 view-details-btn">
+              View Details
+            </a>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <a href="topaz.html" class="w-full text-center">
+              <h2 class="text-white font-bold text-lg mb-2 tracking-wide">
+                TOPAZ SETTINGS [<span class="price-tag text-xl">₹49/-</span>]
+              </h2>
+            </a>
+            <div class="aspect-square w-full bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-xl glow overflow-hidden">
+              <div class="compare-container w-full h-full" data-before="topaz before.png" data-after="topaz after.png">
+                <img src="topaz after.png" alt="After" class="compare-image after-image">
+                <img src="topaz before.png" alt="Before" class="compare-image before-image">
+                <div class="compare-handle"></div>
+              </div>
+            </div>
+            <a href="topaz.html" class="mt-4 view-details-btn">
+              View Details
+            </a>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <a href="packagecc.html" class="w-full text-center">
+              <h2 class="text-white font-bold text-lg mb-2 tracking-wide">
+                WHOLE PACKAGE [<span class="price-tag text-xl">₹399/-</span>]
+              </h2>
+            </a>
+            <div class="aspect-square w-full bg-gradient-to-br from-indigo-300 to-purple-400 rounded-2xl shadow-xl glow overflow-hidden">
+              <img src="package.png" alt="Complete Package" class="w-full h-full object-cover">
+            </div>
+            <a href="packagecc.html" class="mt-4 view-details-btn">
+              View Details
+            </a>
+          </div>
+        </div>
+    </div>
+
+    <div class="mt-10 w-full flex justify-center">
+      <div class="follow-me rounded-xl px-6 py-3 flex items-center space-x-6 shadow-lg">
+        <span class="text-white font-bold">Follow Me:</span>
+        <a href="https://appurl.io/cM0bqqBtcn" target="_blank" class="text-white hover:text-purple-300 transition-colors flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          @reeler_1080p
+        </a>
+        <span class="text-white">|</span>
+        <a href="https://appurl.io/S-zBbyiIKB" target="_blank" class="text-white hover:text-red-300 transition-colors flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+          </svg>
+          Reeler AEP
+        </a>
+      </div>
+    </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize all compare sliders
+      document.querySelectorAll('.compare-container').forEach(container => {
+        const beforeImage = container.querySelector('.before-image');
+        const handle = container.querySelector('.compare-handle');
+        
+        // Set initial position
+        beforeImage.style.clipPath = 'inset(0 50% 0 0)';
+        handle.style.left = '50%';
+
+        let isDragging = false;
+        let startX = 0;
+
+        function updateSlider(x) {
+          const rect = container.getBoundingClientRect();
+          let offsetX = x - rect.left;
+          offsetX = Math.max(0, Math.min(offsetX, rect.width));
+          const percentage = (offsetX / rect.width) * 100;
+          beforeImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+          handle.style.left = `${percentage}%`;
+        }
+
+        // Mouse/touch events
+        const handleMove = (e) => {
+          if (!isDragging) return;
+          const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+          updateSlider(clientX);
+        };
+
+        const handleEnd = () => {
+          isDragging = false;
+          document.removeEventListener('mousemove', handleMove);
+          document.removeEventListener('touchmove', handleMove);
+          document.removeEventListener('mouseup', handleEnd);
+          document.removeEventListener('touchend', handleEnd);
+        };
+
+        const handleStart = (e) => {
+          // Only start dragging if clicking on the handle or very close to it
+          const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+          const rect = container.getBoundingClientRect();
+          const handlePos = rect.left + (rect.width * 0.5); // Initial handle position
+          
+          if (Math.abs(clientX - handlePos) > 20 && !e.target.classList.contains('compare-handle')) {
+            return; // Don't start dragging if click is far from handle
+          }
+          
+          e.preventDefault();
+          isDragging = true;
+          startX = clientX;
+          
+          document.addEventListener('mousemove', handleMove);
+          document.addEventListener('touchmove', handleMove);
+          document.addEventListener('mouseup', handleEnd);
+          document.addEventListener('touchend', handleEnd);
+          
+          updateSlider(clientX);
+        };
+
+        container.addEventListener('mousedown', handleStart);
+        container.addEventListener('touchstart', handleStart, { passive: false });
+        
+        // Prevent click events from propagating when dragging
+        container.addEventListener('click', (e) => {
+          if (isDragging || Math.abs(e.clientX - startX) > 5) {
+            e.stopPropagation();
+            e.preventDefault();
+          }
+        }, true);
+      });
+      
+      // Prevent zooming on mobile
+      document.addEventListener('gesturestart', function(e) {
+        e.preventDefault();
+      });
+    });
+  </script>
+</body>
+</html>

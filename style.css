@@ -1,0 +1,245 @@
+/* Prevent unwanted zooming */
+    html {
+      touch-action: manipulation;
+      -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+    
+    .glow {
+      animation: glow 3s ease-in-out infinite;
+    }
+    
+    @keyframes glow {
+      0% { box-shadow: 0 0 8px #6366f1, 0 0 16px #6366f1; }
+      50% { box-shadow: 0 0 16px #8b5cf6, 0 0 32px #8b5cf6; }
+      100% { box-shadow: 0 0 8px #6366f1, 0 0 16px #6366f1; }
+    }
+    
+    @keyframes iconGlow {
+      0% {
+        filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px currentColor);
+      }
+      50% {
+        filter: drop-shadow(0 0 8px #fff) drop-shadow(0 0 12px currentColor);
+      }
+      100% {
+        filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px currentColor);
+      }
+    }
+
+    .icon-glow {
+      animation: iconGlow 2s ease-in-out infinite;
+    }
+
+    .compare-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 1rem;
+    }
+    
+    .compare-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
+    .before-image {
+      clip-path: inset(0 50% 0 0);
+      transition: clip-path 0.1s ease;
+      z-index: 2;
+    }
+
+    .after-image {
+      z-index: 1;
+    }
+
+    /* Enhanced Fiery Text Animation */
+    .fiery-text {
+      background: linear-gradient(
+        to right, 
+        #ff4d00, #ff9500, #ffcc00, 
+        #ff4d00, #ff9500, #ffcc00,
+        #ff4d00
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: fieryGradient 2s linear infinite;
+      text-shadow: 
+        0 0 10px rgba(255, 77, 0, 0.7),
+        0 0 20px rgba(255, 149, 0, 0.5),
+        0 0 30px rgba(255, 204, 0, 0.3);
+      position: relative;
+      display: inline-block;
+    }
+
+    @keyframes fieryGradient {
+      0% {
+        background-position: 0% center;
+      }
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    /* Fire Pulse Effect */
+    .fiery-text::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: radial-gradient(
+        circle, 
+        rgba(255, 100, 0, 0.4) 0%, 
+        transparent 70%
+      );
+      border-radius: 50%;
+      z-index: -1;
+      animation: firePulse 2s ease-out infinite;
+      opacity: 0;
+    }
+
+    @keyframes firePulse {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+      }
+    }
+
+    .compare-handle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: white;
+      z-index: 3;
+      cursor: ew-resize;
+      transition: left 0.1s ease;
+    }
+    
+    @keyframes moneyGlow {
+      0% {
+        text-shadow: 0 0 6px #00ff6a, 0 0 12px #00ff6a;
+        transform: scale(1);
+      }
+      50% {
+        text-shadow: 0 0 12px #00ff6a, 0 0 24px #00ff6a;
+        transform: scale(1.1);
+      }
+      100% {
+        text-shadow: 0 0 6px #00ff6a, 0 0 12px #00ff6a;
+        transform: scale(1);
+      }
+    }
+
+    .price-tag {
+      color: #00ff6a; 
+      animation: moneyGlow 1.5s ease-in-out infinite;
+      font-weight: 800;
+    }
+    
+    .stroke-gradient {
+      background: linear-gradient(to right, #ff4d00, #ffcc00);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 2px white;
+    }
+    
+    .stroke-purple {
+      -webkit-text-stroke: 2px #a855f7;
+    }
+    
+    .stroke-orange {
+      -webkit-text-stroke: 2px #f97316;
+    }
+    
+    .stroke-green {
+      -webkit-text-stroke: 2px #22c55e;
+    }
+    
+    .stroke-text {
+      color: transparent;
+      -webkit-text-stroke: 2px white;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    
+    .follow-me {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .nav-gradient {
+      background: linear-gradient(90deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%);
+    }
+    
+    /* Fix for video background */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    
+    /* Improved mobile touch handling */
+    @media (max-width: 640px) {
+      .follow-me {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+      }
+      
+      .follow-me span:first-child {
+        margin-bottom: 0.5rem;
+      }
+      
+      .follow-me span:nth-child(3) {
+        display: none;
+      }
+      
+      .stroke-text {
+        -webkit-text-stroke: 1px white;
+      }
+    }
+    
+    /* New button styles */
+    .view-details-btn {
+      background: linear-gradient(to right, #6366f1, #8b5cf6);
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .view-details-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(to right, #4f46e5, #7c3aed);
+    }

@@ -1,509 +1,582 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <title>REELER AEP CC HUB</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Prevent unwanted zooming */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css" />
+    <title>REELER AEP</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&family=Great+Vibes&family=Momo+Trust+Display&family=Playwrite+AU+VIC:wght@100..400&family=Press+Start+2P&family=Rammetto+One&family=Unbounded:wght@200..900&display=swap');
     html {
-      touch-action: manipulation;
-      -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
     }
-    
-    body {
-      overflow-x: hidden;
-      width: 100%;
-    }
-    
-    .glow {
-      animation: glow 3s ease-in-out infinite;
-    }
-    
-    @keyframes glow {
-      0% { box-shadow: 0 0 8px #6366f1, 0 0 16px #6366f1; }
-      50% { box-shadow: 0 0 16px #8b5cf6, 0 0 32px #8b5cf6; }
-      100% { box-shadow: 0 0 8px #6366f1, 0 0 16px #6366f1; }
-    }
-    
-    @keyframes iconGlow {
-      0% {
-        filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px currentColor);
-      }
-      50% {
-        filter: drop-shadow(0 0 8px #fff) drop-shadow(0 0 12px currentColor);
-      }
-      100% {
-        filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px currentColor);
-      }
+    .playwrite-au-vic-400 {
+      font-family: "Playwrite AU VIC", cursive;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
     }
 
-    .icon-glow {
-      animation: iconGlow 2s ease-in-out infinite;
+    .bbh-sans-bartle-regular {
+      font-family: "BBH Sans Bartle", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+    .press-start-2p-regular {
+      font-family: "Press Start 2P", system-ui;
+      font-weight: 400;
+      font-style: normal;
+    }
+    .great-vibes-regular {
+      font-family: "Great Vibes", cursive;
+      font-weight: 400;
+      font-style: normal;
+    }
+    .momo-trust-display-regular {
+      font-family: "Momo Trust Display", sans-serif;
+      font-weight: 400;
+      font-style: normal;
     }
 
-    .compare-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      border-radius: 1rem;
+    .unbounded-400 {
+      font-family: "Unbounded", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400; /* replace with any number from 200 to 900 */
+      font-style: normal;
+    }
+    .bungee-spice-regular {
+      font-family: "Bungee Spice", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+    .glow-star {
+        text-shadow: 0 0 10px rgba(255, 217, 0, 0.7);
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
     
-    .compare-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      -webkit-user-drag: none;
-      user-select: none;
+    .animate-marquee {
+      animation: marquee 32s linear infinite;
+      display: inline-flex;
     }
-
-    .before-image {
-      clip-path: inset(0 50% 0 0);
-      transition: clip-path 0.1s ease;
-      z-index: 2;
-    }
-
-    .after-image {
-      z-index: 1;
-    }
-
-    /* Enhanced Fiery Text Animation */
-    .fiery-text {
-      background: linear-gradient(
-        to right, 
-        #ff4d00, #ff9500, #ffcc00, 
-        #ff4d00, #ff9500, #ffcc00,
-        #ff4d00
-      );
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: fieryGradient 2s linear infinite;
-      text-shadow: 
-        0 0 10px rgba(255, 77, 0, 0.7),
-        0 0 20px rgba(255, 149, 0, 0.5),
-        0 0 30px rgba(255, 204, 0, 0.3);
-      position: relative;
-      display: inline-block;
-    }
-
-    @keyframes fieryGradient {
-      0% {
-        background-position: 0% center;
-      }
-      100% {
-        background-position: 200% center;
-      }
-    }
-
-    /* Fire Pulse Effect */
-    .fiery-text::after {
-      content: '';
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      right: -10px;
-      bottom: -10px;
-      background: radial-gradient(
-        circle, 
-        rgba(255, 100, 0, 0.4) 0%, 
-        transparent 70%
-      );
-      border-radius: 50%;
-      z-index: -1;
-      animation: firePulse 2s ease-out infinite;
-      opacity: 0;
-    }
-
-    @keyframes firePulse {
-      0%, 100% {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      50% {
-        opacity: 0.8;
-        transform: scale(1.2);
-      }
-    }
-
-    .compare-handle {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 4px;
-      height: 100%;
-      background: white;
-      z-index: 3;
-      cursor: ew-resize;
-      transition: left 0.1s ease;
-    }
-    
-    @keyframes moneyGlow {
-      0% {
-        text-shadow: 0 0 6px #00ff6a, 0 0 12px #00ff6a;
-        transform: scale(1);
-      }
-      50% {
-        text-shadow: 0 0 12px #00ff6a, 0 0 24px #00ff6a;
-        transform: scale(1.1);
-      }
-      100% {
-        text-shadow: 0 0 6px #00ff6a, 0 0 12px #00ff6a;
-        transform: scale(1);
-      }
-    }
-
-    .price-tag {
-      color: #00ff6a; 
-      animation: moneyGlow 1.5s ease-in-out infinite;
-      font-weight: 800;
-    }
-    
-    .stroke-gradient {
-      background: linear-gradient(to right, #ff4d00, #ffcc00);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 2px white;
-    }
-    
-    .stroke-purple {
-      -webkit-text-stroke: 2px #a855f7;
-    }
-    
-    .stroke-orange {
-      -webkit-text-stroke: 2px #f97316;
-    }
-    
-    .stroke-green {
-      -webkit-text-stroke: 2px #22c55e;
-    }
-    
-    .stroke-text {
-      color: transparent;
-      -webkit-text-stroke: 2px white;
-      font-weight: bold;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-    
-    .follow-me {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .nav-gradient {
-      background: linear-gradient(90deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%);
-    }
-    
-    /* Fix for video background */
-    .video-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
-    
-    /* Improved mobile touch handling */
-    @media (max-width: 640px) {
-      .follow-me {
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 1rem;
-      }
-      
-      .follow-me span:first-child {
-        margin-bottom: 0.5rem;
-      }
-      
-      .follow-me span:nth-child(3) {
-        display: none;
-      }
-      
-      .stroke-text {
-        -webkit-text-stroke: 1px white;
-      }
-    }
-    
-    /* New button styles */
-    .view-details-btn {
-      background: linear-gradient(to right, #6366f1, #8b5cf6);
-      color: white;
-      font-weight: 600;
-      padding: 0.5rem 1.5rem;
-      border-radius: 0.5rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    
-    .view-details-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-      background: linear-gradient(to right, #4f46e5, #7c3aed);
-    }
-  </style>
+    </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex flex-col items-center p-4 pb-10">
-    <video autoplay muted loop playsinline class="video-background">
-        <source src="insta bg.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-    </video>
-      
-    <nav class="w-full fixed top-0 left-0 z-50 backdrop-blur-md bg-white/10 shadow-lg px-4 nav-gradient">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-4 h-16 sm:h-20">
-            <!-- Left Side: Logo + Social Links -->
-            <div class="flex items-center gap-2 sm:gap-4 h-full">
-                <!-- Logo (full height of nav) -->
-                <div class="h-16 aspect-square rounded-full border-auto sm:border-4 border-white shadow-lg glow overflow-hidden shrink-0">
-                    <img src="my logo.png" alt="My Logo" class="w-full h-full object-cover rounded-full" />
+<body class="">
+    <div id="main" data-scroll-container>
+        <div class="fixed top-0 left-0 w-full z-50 border-b-1 border-grey-500 bg-white backdrop-blur-md shadow-sm">
+            <!-- <div class="fixed top-0 left-0 w-full z-50 border-b border-gray-300 bg-white shadow-sm"> -->
+
+            <nav class="flex justify-between items-center p-2 m-2">
+                <div class="flex justify-center items-center gap-4">
+                    <div class="w-10 h-10 rounded-3xl bg-black text-white flex items-center justify-center shadow-xl hidden md:flex">
+                        <!-- <img src="l.svg" class="w-12 h-12 rounded-lg" alt="Logo"> -->
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold tracking-wide bungee-spice-regular">REELER AEP</h1>
+                </div>      
+                <!-- <div class="text-2xl flex justify-center items-center ml-10 font-bold italic">REELER AEP</div> -->
+                <div class="hidden lg:flex justify-center items-center gap-8 pr-8">
+                    <a href="http://" target="_blank" rel="noopener noreferrer">
+                        <div class="bbh-sans-bartle-regular text-sm flex gap-2 justify-center items-center bg-gradient-to-r from-[#f58529] via-[#dd2a7b] to-[#8134af] p-2 rounded-lg text-white hover:brightness-90 transition ease-out">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                              <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                            </svg></i>
+                            Instagram
+                        </div>
+                    </a>
+                    <a href="http://" target="_blank" rel="noopener noreferrer">
+                        <div class="bbh-sans-bartle-regular text-sm flex gap-2 justify-center items-center bg-gradient-to-r from-[#FF0000] via-[#CC0000] to-[#990000] p-2 rounded-lg text-white hover:brightness-90 transition ease-out">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                              <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+                            </svg>
+                            YouTube
+                        </div>
+                    </a>
+                </div>
+            </nav>
+        </div>
+        <!-- VIDEO SECTION -->
+        <div class="pt-24 flex justify-center">
+            <img src="front.png" class="w-[80%] lg:w-[50%] rounded-xl" alt="Homepage Image">
+        </div>
+        <!-- CONTENT SECTION -->
+        <div class="px-4 mt-4 lg:mt-2 text-center">
+            <h1 class="text-4xl font-bold mb-4 momo-trust-display-regular tracking-wide">
+                Welcome to REELER AEP CC HUB
+            </h1>
+            <p class="text-gray-600 text-2xl leading-relaxed max-w-2xl mx-auto great-vibes-regular">
+                Your premium Premium After Effects & Color Corrected resource hub for color-corrected images, transitions, presets, 
+                project files and reel-editing tools.
+            </p>
+            <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- CARD 1 -->
+                <div class="bg-white/20 p-6 rounded-2xl border-2 border-dashed border-black
+                            shadow-[8px_8px_0px_0px_black]
+                            transition-all duration-300 hover:scale-105 hover:shadow-[12px_12px_0px_0px_black]">
+            
+                    <!-- SVG ICON -->
+                    <div class="w-12 h-12 mx-auto mb-4">
+                        <svg fill="none" stroke="black" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 20l9-16H3l9 16z" />
+                        </svg>
+                    </div>
+                
+                    <h2 class="text-xl font-bold mb-2 font-['Poppins'] ">Color Corrected Images</h2>
+                    <p class="text-gray-700 font-['Inter']">Full-HD cinema-grade CC images.</p>
+                </div>
+                <!-- CARD 2 -->
+                <div class="bg-white/20 p-6 rounded-2xl border-2 border-dashed border-black
+                            shadow-[8px_8px_0px_0px_black]
+                            transition-all duration-300 hover:scale-105 hover:shadow-[12px_12px_0px_0px_black]">
+            
+                    <!-- SVG ICON -->
+                    <div class="w-12 h-12 mx-auto mb-4">
+                        <svg fill="none" stroke="black" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M4 4h16v16H4z" />
+                            <path d="M9 9l6 6M15 9l-6 6" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold mb-2 font-['Poppins']">Transitions & Presets</h2>
+                    <p class="text-gray-700 font-['Inter']">Smooth FX for reels and edits.</p>
+                </div>
+                <!-- CARD 3 -->
+                <div class="bg-white/20 p-6 rounded-2xl border-2 border-dashed border-black
+                            shadow-[8px_8px_0px_0px_black]
+                            transition-all duration-300 hover:scale-105 hover:shadow-[12px_12px_0px_0px_black]">
+            
+                    <!-- SVG ICON -->
+                    <div class="w-12 h-12 mx-auto mb-4">
+                        <svg fill="none" stroke="black" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M4 4h16v4H4zM4 10h16v10H4z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold mb-2 font-['Poppins']">Project Files</h2>
+                    <p class="text-gray-700 font-['Inter']">Premium AEP templates & assets.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-orange-50 p-6 mt-10">
+               <!-- Heading -->
+            <h2 class="text-xl lg:text-4xl pt-6 font-bold text-gray-800 text-center mb-12 unbounded-400">
+                " Explore Color Corrected Options & Complete Editing Bundles "
+            </h2>              
+            <!-- Grid of cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16 mt-10">              
+              <!-- CARD 1 -->
+                <div class="relative">
+                    <div class="absolute w-full h-full bg-black rounded-2xl translate-x-3 translate-y-3 z-0"></div>
+                    <!-- Main Card -->
+                    <div class="relative p-6 bg-white rounded-2xl z-10 border-2 border-black">
+                        <!-- Heading -->
+                        <h3 class="text-sm font-bold text-black text-center mb-4 playwrite-au-vic-400">
+                            4K HDR CC <span class="text-green-500 text-lg font-extrabold">₹99/-</span>
+                        </h3>
+                        <!-- Image -->
+                        <div>
+                            <img 
+                                src="https://images.pexels.com/photos/1693302/pexels-photo-1693302.jpeg" 
+                                alt="kanappa" 
+                                class="w-full h-56 object-cover rounded-xl"
+                            >
+                        </div>
+                        <!-- Button -->
+                        <div class="flex justify-center mt-4">
+                            <button onclick="window.location.href='4khdrcc.html'"
+                                class="inline-flex items-center gap-2 
+                                       px-4 py-2 bg-[rgb(242,242,242)]
+                                       border-gray-500
+                                       hover:border-gray-400
+                                       border-2 border-dashed
+                                       rounded-2xl 
+                                       hover:shadow-[inset_0_4px_10px_rgba(0,0,0,0.35),inset_0_-4px_10px_rgba(255,255,255,0.6)]
+                                       shadow-[inset_0_2px_6px_rgba(0,0,0,0.22),inset_0_-2px_6px_rgba(255,255,255,0.55)] ">
+                                <span class="font-bold text-black unbounded-400">VIEW DETAILS</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+              <!-- CARD 1 -->
+                <div class="relative">
+                    <div class="absolute w-full h-full bg-black rounded-2xl translate-x-3 translate-y-3 z-0"></div>
+                    <!-- Main Card -->
+                    <div class="relative p-6 bg-white rounded-2xl z-10 border-2 border-black">
+                        <!-- Heading -->
+                        <h3 class="text-sm font-bold text-black text-center mb-4 playwrite-au-vic-400">
+                            COLOURFUL CC <span class="text-green-500 text-lg font-extrabold">₹99/-</span>
+                        </h3>
+                        <!-- Image -->
+                        <div>
+                            <img 
+                                src="https://images.pexels.com/photos/1693302/pexels-photo-1693302.jpeg" 
+                                alt="kanappa" 
+                                class="w-full h-56 object-cover rounded-xl"
+                            >
+                        </div>
+                        <!-- Button -->
+                        <div class="flex justify-center mt-4">
+                            <button onclick="window.location.href='4khdrcc.html'"
+                                class="inline-flex items-center gap-2 
+                                       px-4 py-2 bg-[rgb(242,242,242)]
+                                       border-gray-500
+                                       hover:border-gray-400
+                                       border-2 border-dashed
+                                       rounded-2xl 
+                                       hover:shadow-[inset_0_4px_10px_rgba(0,0,0,0.35),inset_0_-4px_10px_rgba(255,255,255,0.6)]
+                                       shadow-[inset_0_2px_6px_rgba(0,0,0,0.22),inset_0_-2px_6px_rgba(255,255,255,0.55)] ">
+                                <span class="font-bold text-black unbounded-400">VIEW DETAILS</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+              <!-- CARD 1 -->
+                <div class="relative">
+                    <div class="absolute w-full h-full bg-black rounded-2xl translate-x-3 translate-y-3 z-0"></div>
+                    <!-- Main Card -->
+                    <div class="relative p-6 bg-white rounded-2xl z-10 border-2 border-black">
+                        <!-- Heading -->
+                        <h3 class="text-sm font-bold text-black text-center mb-4 playwrite-au-vic-400">
+                            UNIVERSAL CC <span class="text-green-500 text-lg font-extrabold">₹99/-</span>
+                        </h3>
+                        <!-- Image -->
+                        <div>
+                            <img 
+                                src="https://images.pexels.com/photos/1693302/pexels-photo-1693302.jpeg" 
+                                alt="kanappa" 
+                                class="w-full h-56 object-cover rounded-xl"
+                            >
+                        </div>
+                        <!-- Button -->
+                        <div class="flex justify-center mt-4">
+                            <button onclick="window.location.href='4khdrcc.html'"
+                                class="inline-flex items-center gap-2 
+                                       px-4 py-2 bg-[rgb(242,242,242)]
+                                       border-gray-500
+                                       hover:border-gray-400
+                                       border-2 border-dashed
+                                       rounded-2xl 
+                                       hover:shadow-[inset_0_4px_10px_rgba(0,0,0,0.35),inset_0_-4px_10px_rgba(255,255,255,0.6)]
+                                       shadow-[inset_0_2px_6px_rgba(0,0,0,0.22),inset_0_-2px_6px_rgba(255,255,255,0.55)] ">
+                                <span class="font-bold text-black unbounded-400">VIEW DETAILS</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+              <!-- CARD 1 -->
+                <div class="relative">
+                    <div class="absolute w-full h-full bg-black rounded-2xl translate-x-3 translate-y-3 z-0"></div>
+                    <!-- Main Card -->
+                    <div class="relative p-6 bg-white rounded-2xl z-10 border-2 border-black">
+                        <!-- Heading -->
+                        <h3 class="text-sm font-bold text-black text-center mb-4 playwrite-au-vic-400">
+                            DETAIL HDR CC <span class="text-green-500 text-lg font-extrabold">₹99/-</span>
+                        </h3>
+                        <!-- Image -->
+                        <div>
+                            <img 
+                                src="https://images.pexels.com/photos/1693302/pexels-photo-1693302.jpeg" 
+                                alt="kanappa" 
+                                class="w-full h-56 object-cover rounded-xl"
+                            >
+                        </div>
+                        <!-- Button -->
+                        <div class="flex justify-center mt-4">
+                            <button onclick="window.location.href='4khdrcc.html'"
+                                class="inline-flex items-center gap-2 
+                                       px-4 py-2 bg-[rgb(242,242,242)]
+                                       border-gray-500
+                                       hover:border-gray-400
+                                       border-2 border-dashed
+                                       rounded-2xl 
+                                       hover:shadow-[inset_0_4px_10px_rgba(0,0,0,0.35),inset_0_-4px_10px_rgba(255,255,255,0.6)]
+                                       shadow-[inset_0_2px_6px_rgba(0,0,0,0.22),inset_0_-2px_6px_rgba(255,255,255,0.55)] ">
+                                <span class="font-bold text-black unbounded-400">VIEW DETAILS</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+              <!-- CARD 1 -->
+                <div class="relative">
+                    <div class="absolute w-full h-full bg-black rounded-2xl translate-x-3 translate-y-3 z-0"></div>
+                    <!-- Main Card -->
+                    <div class="relative p-6 bg-white rounded-2xl z-10 border-2 border-black">
+                        <!-- Heading -->
+                        <h3 class="text-sm font-bold text-black text-center mb-4 playwrite-au-vic-400">
+                            TOPAZ SETTINGS <span class="text-green-500 text-lg font-extrabold">₹49/-</span>
+                        </h3>
+                        <!-- Image -->
+                        <div>
+                            <img 
+                                src="https://images.pexels.com/photos/1693302/pexels-photo-1693302.jpeg" 
+                                alt="kanappa" 
+                                class="w-full h-56 object-cover rounded-xl"
+                            >
+                        </div>
+                        <!-- Button -->
+                        <div class="flex justify-center mt-4">
+                            <button onclick="window.location.href='4khdrcc.html'"
+                                class="inline-flex items-center gap-2 
+                                       px-4 py-2 bg-[rgb(242,242,242)]
+                                       border-gray-500
+                                       hover:border-gray-400
+                                       border-2 border-dashed
+                                       rounded-2xl 
+                                       hover:shadow-[inset_0_4px_10px_rgba(0,0,0,0.35),inset_0_-4px_10px_rgba(255,255,255,0.6)]
+                                       shadow-[inset_0_2px_6px_rgba(0,0,0,0.22),inset_0_-2px_6px_rgba(255,255,255,0.55)] ">
+                                <span class="font-bold text-black unbounded-400">VIEW DETAILS</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+              <!-- CARD 1 -->
+                <div class="relative">
+                    <div class="absolute w-full h-full bg-black rounded-2xl translate-x-3 translate-y-3 z-0"></div>
+                    <!-- Main Card -->
+                    <div class="relative p-6 bg-white rounded-2xl z-10 border-2 border-black">
+                        <!-- Heading -->
+                        <h3 class="text-sm font-bold text-black text-center mb-4 playwrite-au-vic-400">
+                            WHOLE PACKAGE <span class="text-green-500 text-lg font-extrabold">₹299/-</span>
+                        </h3>
+                        <!-- Image -->
+                        <div>
+                            <img 
+                                src="https://images.pexels.com/photos/1693302/pexels-photo-1693302.jpeg" 
+                                alt="kanappa" 
+                                class="w-full h-56 object-cover rounded-xl"
+                            >
+                        </div>
+                        <!-- Button -->
+                        <div class="flex justify-center mt-4">
+                            <button onclick="window.location.href='4khdrcc.html'"
+                                class="inline-flex items-center gap-2 
+                                       px-4 py-2 bg-[rgb(242,242,242)]
+                                       border-gray-500
+                                       hover:border-gray-400
+                                       border-2 border-dashed
+                                       rounded-2xl 
+                                       hover:shadow-[inset_0_4px_10px_rgba(0,0,0,0.35),inset_0_-4px_10px_rgba(255,255,255,0.6)]
+                                       shadow-[inset_0_2px_6px_rgba(0,0,0,0.22),inset_0_-2px_6px_rgba(255,255,255,0.55)] ">
+                                <span class="font-bold text-black unbounded-400">VIEW DETAILS</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <br>
+        </div>
+    </div>
+    
+        <!-- REVIEW SECTION -->
+        <div class="w-full overflow-hidden py-14 bg-black">
+            <h2 class="text-2xl font-bold text-white text-center mb-8 unbounded-400">
+                Stories From Our Happy Customers
+            </h2><br>
+            <div class="relative overflow-hidden">
+            
+                <!-- MOVING TRACK -->
+                <div class="flex gap-8 animate-marquee whitespace-nowrap will-change-transform">
+                    <!-- 1st COPY OF REVIEWS -->
+                    <div class="flex gap-8">
+                        <!-- Review 1 -->
+                        <div class="min-w-[350px] bg-white/10 backdrop-blur-xl border border-white/20 
+                                    rounded-2xl p-6 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+
+                            <div class="flex items-center gap-4">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" 
+                                     class="w-14 h-14 rounded-full border border-white/40">
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Rohit Sharma</h3>
+                                    <p class="text-yellow-400 text-xl glow-star">★★★★★</p>
+                                </div>
+                            </div>
+                        
+                            <p class="text-gray-200 mt-4 text-sm leading-relaxed">
+                                The color-corrected images are absolutely cinematic.<br>Perfect for my reel edits!
+                            </p>
+                        </div>
+                    
+                        <!-- Review 2 -->
+                        <div class="min-w-[350px] bg-white/10 backdrop-blur-xl border border-white/20 
+                                    rounded-2xl p-6 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+
+                            <div class="flex items-center gap-4">
+                                <img src="https://randomuser.me/api/portraits/women/21.jpg" 
+                                     class="w-14 h-14 rounded-full border border-white/40">
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Sneha Verma</h3>
+                                    <p class="text-yellow-400 text-xl glow-star">★★★★☆</p>
+                                </div>
+                            </div>
+                        
+                            <p class="text-gray-200 mt-4 text-sm leading-relaxed">
+                                Great quality images. Skin tones look natural and clean.<br>Recommended!
+                            </p>
+                        </div>
+                    
+                        <!-- Review 3 -->
+                        <div class="min-w-[350px] bg-white/10 backdrop-blur-xl border border-white/20 
+                                    rounded-2xl p-6 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+
+                            <div class="flex items-center gap-4">
+                                <img src="https://randomuser.me/api/portraits/men/45.jpg" 
+                                     class="w-14 h-14 rounded-full border border-white/40">
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Aman Gupta</h3>
+                                    <p class="text-yellow-400 text-xl glow-star">★★★★★</p>
+                                </div>
+                            </div>
+                        
+                            <p class="text-gray-200 mt-4 text-sm leading-relaxed">
+                                Using these CC images made my reels stand out instantly.<br>Totally worth it!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex gap-8">
+                        <!-- Review 4 -->
+                        <div class="min-w-[350px] bg-white/10 backdrop-blur-xl border border-white/20 
+                                    rounded-2xl p-6 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+
+                            <div class="flex items-center gap-4">
+                                <img src="https://randomuser.me/api/portraits/women/31.jpg" 
+                                     class="w-14 h-14 rounded-full border border-white/40">
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Priya Nair</h3>
+                                    <p class="text-yellow-400 text-xl glow-star">★★★☆☆</p>
+                                </div>
+                            </div>
+                        
+                            <p class="text-gray-200 mt-4 text-sm leading-relaxed">
+                                Pretty good quality. <br>Some images could be brighter but overall satisfied.
+                            </p>
+                        </div>
+                    
+                        <!-- Review 5 -->
+                        <div class="min-w-[350px] bg-white/10 backdrop-blur-xl border border-white/20 
+                                    rounded-2xl p-6 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+
+                            <div class="flex items-center gap-4">
+                                <img src="https://randomuser.me/api/portraits/men/52.jpg" 
+                                     class="w-14 h-14 rounded-full border border-white/40">
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Harish Mehta</h3>
+                                    <p class="text-yellow-400 text-xl glow-star">★★★★★</p>
+                                </div>
+                            </div>
+                        
+                            <p class="text-gray-200 mt-4 text-sm leading-relaxed">
+                                Superb clarity & dynamic colors.<br>Easily the best CC edits I’ve bought.
+                            </p>
+                        </div>
+                    
+                        <!-- Review 6 -->
+                        <div class="min-w-[350px] bg-white/10 backdrop-blur-xl border border-white/20 
+                                    rounded-2xl p-6 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+
+                            <div class="flex items-center gap-4">
+                                <img src="https://randomuser.me/api/portraits/women/56.jpg" 
+                                     class="w-14 h-14 rounded-full border border-white/40">
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Kritika Soni</h3>
+                                    <p class="text-yellow-400 text-xl glow-star">★★★★☆</p>
+                                </div>
+                            </div>
+                        
+                            <p class="text-gray-200 mt-4 text-sm leading-relaxed">
+                                Beautiful tones. <br>These CC images improved my whole editing style.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex gap-8">
+                        <!-- Review 7 -->
+                        <div class="min-w-[350px] bg-white/10 backdrop-blur-xl border border-white/20 
+                                    rounded-2xl p-6 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+
+                            <div class="flex items-center gap-4">
+                                <img src="https://randomuser.me/api/portraits/women/57.jpg" 
+                                     class="w-14 h-14 rounded-full border border-white/40">
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Riya Kulkarni</h3>
+                                    <p class="text-yellow-400 text-xl glow-star">★★★★☆</p>
+                                </div>
+                            </div>
+                        
+                            <p class="text-gray-200 mt-4 text-sm leading-relaxed">
+                                Smooth experience overall.<br>The LUTs and presets actually improved my footage.
+                            </p>
+                        </div>
+                        <!-- Review 8 -->
+                        <div class="min-w-[350px] bg-white/10 backdrop-blur-xl border border-white/20 
+                                    rounded-2xl p-6 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+
+                            <div class="flex items-center gap-4">
+                                <img src="https://randomuser.me/api/portraits/women/57.jpg" 
+                                     class="w-14 h-14 rounded-full border border-white/40">
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Aarav Mehta</h3>
+                                    <p class="text-yellow-400 text-xl glow-star">★★★★☆</p>
+                                </div>
+                            </div>
+                        
+                            <p class="text-gray-200 mt-4 text-sm leading-relaxed">
+                                 Really impressed with the quality! <br>The editing and colour grading look super premium.
+                            </p>
+                        </div>
+                        <!-- Review 9 -->
+                        <div class="min-w-[350px] bg-white/10 backdrop-blur-xl border border-white/20 
+                                    rounded-2xl p-6 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+
+                            <div class="flex items-center gap-4">
+                                <img src="https://randomuser.me/api/portraits/women/57.jpg" 
+                                     class="w-14 h-14 rounded-full border border-white/40">
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Sarthak Verma</h3>
+                                    <p class="text-yellow-400 text-xl glow-star">★★★★☆</p>
+                                </div>
+                            </div>
+                        
+                            <p class="text-gray-200 mt-4 text-sm leading-relaxed">
+                                Smooth experience overall. <br>The LUTs and presets actually improved my footage.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-8">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- TOP: LINKS -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+
+                <div class="flex items-center gap-6 text-md">
+                    <a href="#" class="hover:text-gray-300 transition">About</a>
+                    <a href="#" class="hover:text-gray-300 transition">Instagram</a>
+                    <a href="#" class="hover:text-gray-300 transition">YouTube</a>
                 </div>
 
-                <!-- Instagram Link -->
-                <a href="https://appurl.io/cM0bqqBtcn" target="_blank"
-                   class="text-white text-sm sm:text-base md:text-lg font-semibold flex items-center gap-1 sm:gap-2 group flex-shrink-0">
-                    <span class="truncate">@reeler_1080p</span>
-                    <img src="https://cdn.pixabay.com/photo/2021/06/15/12/14/instagram-6338393_1280.png" alt="Instagram"
-                         class="w-4 h-4 rounded-full sm:w-5 sm:h-5 icon-glow text-pink-500 group-hover:scale-110 transition-transform duration-300" />
-                </a>
-
-                <!-- YouTube Link -->
-                <a href="https://appurl.io/S-zBbyiIKB" target="_blank"
-                   class="text-white text-sm sm:text-base md:text-lg font-semibold flex items-center gap-1 sm:gap-2 group flex-shrink-0">
-                    <span class="truncate">Reeler Aep</span>
-                    <img src="youtube.png" alt="YouTube"
-                         class="w-4 h-4 sm:w-5 rounded-full sm:h-5 icon-glow text-red-500 group-hover:scale-110 transition-transform duration-300" />
+            </div>
+            <!-- Divider -->
+            <div class="border-t border-gray-700 my-6"></div>
+            <!-- BOTTOM: COPYRIGHT + MADE WITH LOVE -->
+            <div class="flex flex-col md:flex-row items-center justify-between text-sm text-gray-400">
+                <p>© 2025 REELER AEP CC HUB. All rights reserved.</p>
+                <a href="#" class="flex items-center gap-2 hover:text-gray-200 transition mt-3 md:mt-0">
+                    Made with ❤️ by 
+                    <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" class="w-5 h-5 invert" alt="GitHub">
                 </a>
             </div>
-            
-            <!-- Right Side (empty for balance) -->
-            <div class="invisible sm:invisible sm:w-[calc(50%-theme(spacing.4))]"></div>
         </div>
-    </nav>
-    
-    <!-- Main Heading Below Navbar -->
-    <div class="w-full max-w-6xl mt-24 mb-8 text-center px-4">
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-wider mb-2">
-        <span class="fiery-text text-transparent stroke-text">REELER AEP CC HUB</span>
-      </h1>
-    </div>
-    
-    <!-- Product Grid -->
-    <div class="w-full max-w-6xl mt-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.min.js"></script>
+        <script>
+            const scroll = new LocomotiveScroll({
+                el: document.querySelector("#main"),
+                smooth: true,
+            });
 
-          <div class="flex flex-col items-center">
-            <a href="4khdrcc.html" class="w-full text-center">
-              <h2 class="text-white font-bold text-lg mb-2 tracking-wide">
-                4K HDR CC [<span class="price-tag text-xl">₹99/-</span>]
-              </h2>
-            </a>
-            <div class="aspect-square w-full bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-xl glow overflow-hidden">
-              <div class="compare-container w-full h-full" data-before="yoyo before.png" data-after="yoyo after.png">
-                <img src="yoyo after.png" alt="After" class="compare-image after-image">
-                <img src="yoyo before.png" alt="Before" class="compare-image before-image">
-                <div class="compare-handle"></div>
-              </div>
-            </div>
-            <a href="4khdrcc.html" class="mt-4 view-details-btn">
-              View Details
-            </a>
-          </div>
-        
-          <div class="flex flex-col items-center">
-            <a href="colourfulcc.html" class="w-full text-center">
-              <h2 class="text-white font-bold text-lg mb-2 tracking-wide">
-                COLOURFUL CC [<span class="price-tag text-xl">₹99/-</span>]
-              </h2>
-            </a>
-            <div class="aspect-square w-full bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-xl glow overflow-hidden">
-              <div class="compare-container w-full h-full" data-before="mona2 before.png" data-after="mona2 after.png">
-                <img src="mona2 after.png" alt="After" class="compare-image after-image">
-                <img src="mona2 before.png" alt="Before" class="compare-image before-image">
-                <div class="compare-handle"></div>
-              </div>
-            </div>
-            <a href="colourfulcc.html" class="mt-4 view-details-btn">
-              View Details
-            </a>
-          </div>
-        
-          <div class="flex flex-col items-center">
-            <a href="universalcc.html" class="w-full text-center">
-              <h2 class="text-white font-bold text-lg mb-2 tracking-wide">
-                UNIVERSAL CC [<span class="price-tag text-xl">₹99/-</span>]
-              </h2>
-            </a>
-            <div class="aspect-square w-full bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl shadow-xl glow overflow-hidden">
-              <div class="compare-container w-full h-full" data-before="cc3 before.png" data-after="cc3 after.png">
-                <img src="cc3 after.png" alt="After" class="compare-image after-image">
-                <img src="cc3 before.png" alt="Before" class="compare-image before-image">
-                <div class="compare-handle"></div>
-              </div>
-            </div>
-            <a href="universalcc.html" class="mt-4 view-details-btn">
-              View Details
-            </a>
-          </div>
-          
-          <div class="flex flex-col items-center">
-            <a href="detailhdrcc.html" class="w-full text-center">
-              <h2 class="text-white font-bold text-lg mb-2 tracking-wide">
-                DETAIL HDR CC [<span class="price-tag text-xl">₹99/-</span>]
-              </h2>
-            </a>
-            <div class="aspect-square w-full bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-xl glow overflow-hidden">
-              <div class="compare-container w-full h-full" data-before="kanappa before.png" data-after="kanappa after.png">
-                <img src="kanappa after.png" alt="After" class="compare-image after-image">
-                <img src="kanappa before.png" alt="Before" class="compare-image before-image">
-                <div class="compare-handle"></div>
-              </div>
-            </div>
-            <a href="detailhdrcc.html" class="mt-4 view-details-btn">
-              View Details
-            </a>
-          </div>
-
-          <div class="flex flex-col items-center">
-            <a href="topaz.html" class="w-full text-center">
-              <h2 class="text-white font-bold text-lg mb-2 tracking-wide">
-                TOPAZ SETTINGS [<span class="price-tag text-xl">₹49/-</span>]
-              </h2>
-            </a>
-            <div class="aspect-square w-full bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-xl glow overflow-hidden">
-              <div class="compare-container w-full h-full" data-before="topaz before.png" data-after="topaz after.png">
-                <img src="topaz after.png" alt="After" class="compare-image after-image">
-                <img src="topaz before.png" alt="Before" class="compare-image before-image">
-                <div class="compare-handle"></div>
-              </div>
-            </div>
-            <a href="topaz.html" class="mt-4 view-details-btn">
-              View Details
-            </a>
-          </div>
-
-          <div class="flex flex-col items-center">
-            <a href="packagecc.html" class="w-full text-center">
-              <h2 class="text-white font-bold text-lg mb-2 tracking-wide">
-                WHOLE PACKAGE [<span class="price-tag text-xl">₹299/-</span>]
-              </h2>
-            </a>
-            <div class="aspect-square w-full bg-gradient-to-br from-indigo-300 to-purple-400 rounded-2xl shadow-xl glow overflow-hidden">
-              <img src="package.png" alt="Complete Package" class="w-full h-full object-cover">
-            </div>
-            <a href="packagecc.html" class="mt-4 view-details-btn">
-              View Details
-            </a>
-          </div>
-        </div>
-    </div>
-
-    <div class="mt-10 w-full flex justify-center">
-      <div class="follow-me rounded-xl px-6 py-3 flex items-center space-x-6 shadow-lg">
-        <span class="text-white font-bold">Follow Me:</span>
-        <a href="https://appurl.io/cM0bqqBtcn" target="_blank" class="text-white hover:text-purple-300 transition-colors flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-          </svg>
-          @reeler_1080p
-        </a>
-        <span class="text-white">|</span>
-        <a href="https://appurl.io/S-zBbyiIKB" target="_blank" class="text-white hover:text-red-300 transition-colors flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-          </svg>
-          Reeler AEP
-        </a>
-      </div>
-    </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Initialize all compare sliders
-      document.querySelectorAll('.compare-container').forEach(container => {
-        const beforeImage = container.querySelector('.before-image');
-        const handle = container.querySelector('.compare-handle');
-        
-        // Set initial position
-        beforeImage.style.clipPath = 'inset(0 50% 0 0)';
-        handle.style.left = '50%';
-
-        let isDragging = false;
-        let startX = 0;
-
-        function updateSlider(x) {
-          const rect = container.getBoundingClientRect();
-          let offsetX = x - rect.left;
-          offsetX = Math.max(0, Math.min(offsetX, rect.width));
-          const percentage = (offsetX / rect.width) * 100;
-          beforeImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
-          handle.style.left = `${percentage}%`;
-        }
-
-        // Mouse/touch events
-        const handleMove = (e) => {
-          if (!isDragging) return;
-          const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-          updateSlider(clientX);
-        };
-
-        const handleEnd = () => {
-          isDragging = false;
-          document.removeEventListener('mousemove', handleMove);
-          document.removeEventListener('touchmove', handleMove);
-          document.removeEventListener('mouseup', handleEnd);
-          document.removeEventListener('touchend', handleEnd);
-        };
-
-        const handleStart = (e) => {
-          // Only start dragging if clicking on the handle or very close to it
-          const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
-          const rect = container.getBoundingClientRect();
-          const handlePos = rect.left + (rect.width * 0.5); // Initial handle position
-          
-          if (Math.abs(clientX - handlePos) > 20 && !e.target.classList.contains('compare-handle')) {
-            return; // Don't start dragging if click is far from handle
-          }
-          
-          e.preventDefault();
-          isDragging = true;
-          startX = clientX;
-          
-          document.addEventListener('mousemove', handleMove);
-          document.addEventListener('touchmove', handleMove);
-          document.addEventListener('mouseup', handleEnd);
-          document.addEventListener('touchend', handleEnd);
-          
-          updateSlider(clientX);
-        };
-
-        container.addEventListener('mousedown', handleStart);
-        container.addEventListener('touchstart', handleStart, { passive: false });
-        
-        // Prevent click events from propagating when dragging
-        container.addEventListener('click', (e) => {
-          if (isDragging || Math.abs(e.clientX - startX) > 5) {
-            e.stopPropagation();
-            e.preventDefault();
-          }
-        }, true);
-      });
-      
-      // Prevent zooming on mobile
-      document.addEventListener('gesturestart', function(e) {
-        e.preventDefault();
-      });
-    });
-  </script>
+        </script>
 </body>
 </html>
